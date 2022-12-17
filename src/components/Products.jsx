@@ -9,8 +9,6 @@ const Products = () => {
 	const { products } = useSelector((state) => state.products);
 	const dispatch = useDispatch();
 
-	console.log(products);
-
 	useEffect(() => {
 		dispatch(fetchProducts());
 	}, []);

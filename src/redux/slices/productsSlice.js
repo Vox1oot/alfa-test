@@ -13,8 +13,9 @@ const productsSlice = createSlice({
 	name: 'products',
 	initialState: { products: [] },
 	reducers: {
-		incrementPrice: (state) => {
-			state.price += 1;
+		toggleLike: (state, { payload }) => {
+			const product = state.products.find(({ id }) => id === payload);
+			product.like = !product.like;
 		},
 	},
 	extraReducers: (builder) => {
@@ -25,5 +26,5 @@ const productsSlice = createSlice({
 	},
 });
 
-export const { incrementPrice } = productsSlice.actions;
+export const { toggleLike } = productsSlice.actions;
 export default productsSlice.reducer;

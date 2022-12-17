@@ -1,7 +1,10 @@
 import React from "react";
 import { ReactComponent as LikeComponent } from '../icons/like.svg';
+import { useDispatch } from 'react-redux';
+import { toggleLike } from "../redux/slices/productsSlice";
 
 const Product = ({ product }) => {
+	const dispatch = useDispatch();
 
 	return (
 		<div className="product">
@@ -13,7 +16,7 @@ const Product = ({ product }) => {
 				<div className="description p-5">{product.description}</div>
 				<div className="footer grid">
 					<div className="price p-5">{`Current price: ${product.price} $`}</div>
-					<LikeComponent className="like"/>
+					<LikeComponent onClick={() => dispatch(toggleLike(product.id))} className="like"/>
 				</div>
 			</div>
 		</div>
