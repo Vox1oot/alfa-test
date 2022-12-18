@@ -4,10 +4,10 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProducts, likedSelector, allSelector } from '../redux/slices/productsSlice.js';
 
+import getURL from "../utilities/getURL.js";
 
 const Products = () => {
 	const [filter, setFilter] = useState(false);
-
 	const products = useSelector(allSelector);
 	const liked = useSelector(likedSelector);
 
@@ -22,7 +22,7 @@ const Products = () => {
 	}
 
 	useEffect(() => {
-		dispatch(fetchProducts());
+		dispatch(fetchProducts(getURL('https://dummyjson.com/products', 10)));
 	}, [dispatch]);
 
 	return (
