@@ -17,6 +17,10 @@ const productsSlice = createSlice({
 			const product = state.products.find(({ id }) => id === payload);
 			product.like = !product.like;
 		},
+		deleteProduct: (state, { payload }) => {
+			const index = state.products.findIndex(({ id }) => id === payload);
+			state.products.splice(index, 1);
+		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(fetchProducts.fulfilled, (state, { payload }) => {
@@ -26,5 +30,5 @@ const productsSlice = createSlice({
 	},
 });
 
-export const { toggleLike } = productsSlice.actions;
+export const { toggleLike, deleteProduct } = productsSlice.actions;
 export default productsSlice.reducer;

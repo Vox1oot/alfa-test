@@ -1,13 +1,14 @@
 import React from "react";
 import { ReactComponent as LikeComponent } from '../icons/like.svg';
+import { ReactComponent as DeleteComponent } from '../icons/trash.svg';
 import { useDispatch } from 'react-redux';
-import { toggleLike } from "../redux/slices/productsSlice";
+import { toggleLike, deleteProduct } from "../redux/slices/productsSlice";
 import cn from 'classnames';
 
-const Product = ({ product: { like, ...rest } }) => {
+const Product = ({ product: { like, id, ...rest } }) => {
 	const dispatch = useDispatch();
 
-	const iconClasses = cn("icon", { liked: like });
+	const likeClasses = cn("icon", 'like', { liked: like });
 	const productClasses = cn("product", { "liked-product": like });
 
 	return (
@@ -19,10 +20,16 @@ const Product = ({ product: { like, ...rest } }) => {
 				<div className="title p-5">{rest.title}</div>
 				<div className="description p-5">{rest.description}</div>
 				<div className="price p-5">{`Current price: ${rest.price} $`}</div>
-				<LikeComponent 
-					onClick={() => dispatch(toggleLike(rest.id))} 
-					className={iconClasses}
-				/>
+				<div className="product__footer">
+					<DeleteComponent
+						className="icon delete"
+						onClick={() => dispatch(deleteProduct(id))}
+					/>
+					<LikeComponent 
+						onClick={() => dispatch(toggleLike(id))} 
+						className={likeClasses}
+					/>
+				</div>
 			</div>
 		</div>
 	)
