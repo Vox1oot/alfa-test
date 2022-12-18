@@ -1,24 +1,42 @@
 import React from "react";
 import Product from "./Product.jsx";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchProducts } from '../redux/slices/productsSlice.js';
+import { fetchProducts, likedSelector, allSelector } from '../redux/slices/productsSlice.js';
 
 
 const Products = () => {
-	const { products } = useSelector((state) => state.products);
+	const [filter, setFilter] = useState(false);
+
+	const products = useSelector(allSelector);
+	const liked = useSelector(likedSelector);
+
 	const dispatch = useDispatch();
+
+	const renderProducts = (products) => products.map((product) => (
+		<Product  key={product.id}  product={product}/>
+	));
+
+	const toggleFilter = () => {
+		setFilter(!filter);
+	}
 
 	useEffect(() => {
 		dispatch(fetchProducts());
-	}, []);
+	}, [dispatch]);
 
 	return (
 		<div className="products">
+			<div className="products__filter">
+				<button 
+					className="filter btn"
+					onClick={toggleFilter}
+				>
+					{filter ? 'Show all' : 'Show liked'}
+				</button>
+			</div>
 			<div className="products-container grid">
-				{ products.map((product) => (
-					<Product  key={product.id}  product={product}/>
-				)) }
+				{filter ? renderProducts(liked) : renderProducts(products)}
 			</div>
 		</div>
 	)

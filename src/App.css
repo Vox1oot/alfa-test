@@ -16,15 +16,32 @@
 	padding: 5px 0;
 }
 
-.products-container {
-	grid-template-columns: repeat(5, 1fr);
-	grid-gap: 20px;
-	justify-items: center;
-}
-
 .product {
 	max-width: 300px;
-	/* max-height: 500px; */
+	border-radius: 25px 25px 25px 25px;
+	overflow: hidden;
+}
+
+/* Filter */
+
+.products__filter {
+	text-align: center;
+	margin: 20px;
+}
+
+.filter {
+	border-radius: 25px;
+	min-height: 50px;
+	min-width: 100px;
+	cursor: pointer;
+}
+
+/* Products */
+
+.products-container {
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	grid-gap: 20px;
+	justify-items: center;
 }
 
 .product__header {
